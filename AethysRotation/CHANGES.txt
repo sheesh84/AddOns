@@ -1,0 +1,205 @@
+lightweight tag 2190eace16743a951d7c2d9bef698cdb9348e7ec 7.3.0.02
+Author:	Aethys256 <aethys256@users.noreply.github.com>
+Date:	Tue Sep 19 07:38:38 2017 +0200
+
+commit 2190eace16743a951d7c2d9bef698cdb9348e7ec
+Author: Aethys256 <aethys256@users.noreply.github.com>
+Date:   Tue Sep 19 07:38:38 2017 +0200
+
+    [TOC] Minor bump
+
+commit 911aae9fd5b8afe78ad87499e891b7048ebba1e0
+Author: Aethys256 <aethys256@users.noreply.github.com>
+Date:   Tue Sep 19 07:22:24 2017 +0200
+
+    [BeastMastery] Refactor things
+
+commit 3b7e9986ca673f4e8e1aa28eab7611502af8fed1
+Author: Nia <Nianel@users.noreply.github.com>
+Date:   Tue Sep 19 05:47:16 2017 +0200
+
+    [Beast Mastery] Fix racial
+
+commit dc8b4fb2523117dfeb9c39ad20ffd46115cd4736
+Author: Nia <Nianel@users.noreply.github.com>
+Date:   Tue Sep 19 04:31:30 2017 +0200
+
+    [Beast Mastery] Update APL
+
+commit a91882050330e036a4899d92bfa37a5a2b0e028c
+Author: Florian Meißner <developer@mystler.eu>
+Date:   Sun Sep 17 12:54:34 2017 +0200
+
+    [Assassination] Screw vendetta conditions
+
+commit 973a661f4c139c25343c322507d5bcf648046570
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Sat Sep 16 14:10:03 2017 -0700
+
+    [Elemental] WIP
+
+commit 973a661f4c139c25343c322507d5bcf648046570
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Sat Sep 16 14:10:03 2017 -0700
+
+    [Elemental] WIP
+
+commit 435f3a5f29b29f8686692903d67a60be54bd97e8
+Author: Chris Lopez <pagarizabal2@gmail.com>
+Date:   Sat Sep 16 23:04:08 2017 +0200
+
+    [Unholy] fixed DT, thanks to Mystler
+
+commit 3098fb0675f7fe90e9aabca08fd238eb9e56d00b
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Sat Sep 16 13:25:21 2017 -0700
+
+    [Enhancement] Tweaks
+
+commit 3db218a45ed1b1d8c7db411b020c0f6459bb81c8
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Thu Sep 14 17:27:47 2017 -0700
+
+    [Elemental] Fix totem mastery spam
+
+commit aac63e343c34a0749af751b9bff0300d1e70257d
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Thu Sep 14 17:00:32 2017 -0700
+
+    [Elemental] WIP
+
+commit ec136f9c1f4888dd224833e9ad20279eba7a3363
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Thu Sep 14 14:43:34 2017 -0700
+
+    [Enhancement] Fix range on ES
+
+commit cecbf5bd54138904f94c6149b184f0269627927c
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Thu Sep 14 14:39:24 2017 -0700
+
+    [Enhancement] Rearrange
+
+commit 42e83bcc1a184dcd982a59bbde049988cdfc8e1e
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Thu Sep 14 14:12:14 2017 -0700
+
+    [Enhancement] Healthstone
+
+commit 07e5b27aca40e424684cb8917db84fd67bfbb1c0
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Thu Sep 14 12:16:15 2017 -0700
+
+    [Elemental] Enable rotation
+
+commit fb37f4dee3d786dc2038eda8d1668998495d3af3
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Sun Sep 10 17:37:10 2017 -0400
+
+    [Subtlety] Fix Non-Raid Vanish Issues
+    
+    * Since Vanish drops combat outside of raids, Vanish macro suggests were often different compared to raid suggestions due to the OOC logic earlier in the module
+    * Reuse the Stealthed()/Finish() finish functions in the OOC section to maintain consistency
+    * Fix issue where the VanishBuff spell was not swapping with Subterfuge correctly
+    * Don't display OOC Stealth icon suggestion if VanishBuff is up, since the player is already stealthed
+    * Only swap the MacroTable order of DfA when ShadowDance is being used, not Vanish
+
+commit 32e3e6f06695c64f85c96f8efc9f41e7a470a0a8
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Sun Sep 10 17:27:04 2017 -0400
+
+    [Subtlety] Add ToS Trinket Support
+    
+    * Add initial support for Specter of Betrayal, Umbral Moonglaives, and Vial of Ceaseless Toxins
+    
+    Note: I currently do not have Specter of Betrayal on my Rogue, so cannot test that specific implementation.
+
+commit 1aecad434a13cdaba3f6519ea0ace7b17ab67c11
+Author: Chris Lopez <pagarizabal2@gmail.com>
+Date:   Tue Sep 5 16:48:07 2017 -0700
+
+    [Frost DeathKnight] updated apl
+
+commit d78b633054c49becbd0296b7660ab07d7d16fb23
+Author: Chris Lopez <pagarizabal2@gmail.com>
+Date:   Wed Sep 6 00:40:41 2017 +0200
+
+    [Unholy] tweaked DA Duration
+
+commit c4fc9014aa9a3b7d4dabbdc3b33421dc5b4618e2
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Mon Sep 4 17:45:04 2017 -0700
+
+    [Enhancement / Arms] Change GCDasOffGCD defaults
+    
+    Make PoPP get spammed less as well.
+
+commit eb4220b3b28528fd04c16153840b0e08fd2142d1
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Mon Sep 4 00:44:00 2017 -0400
+
+    [Subtlety] Fix a SpellID Typo with Previous Commit
+    
+    * Reference S.Stealth:ID at the top of the Stealthed() function instead of S.Vanish:ID
+
+commit cd3bd4d804ba4dc3b38611a6f8ad77eee83e0951
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Mon Sep 4 00:14:49 2017 -0400
+
+    [Subtlety] Refactor StealthMacro to Utilize Stealthed() Function
+    
+    * Move Stealthed() function above StealthMacro() function
+    * Instead of having a re-implementation of the Stealthed APL inline, add additional parameters to the Stealthed() function similar to the Finish() function
+    * This allows StealthMacro to simply use the existing Stealthed() implementation instead of duplicating logic
+    * Fixes a couple edge-cases where the result of the two functions was slightly different after casting Shadow Dace/Vanish
+
+commit da72d1d2abab3c54aed03d092e19bad5be4aa24a
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Sun Sep 3 17:59:32 2017 -0700
+
+    [Arms] Fix WB stalling as OffGCD
+
+commit f3015ce51227ba5828903a935a7b9011d772afa4
+Author: lithium720 <lithium720@users.noreply.github.com>
+Date:   Sun Sep 3 17:57:40 2017 -0700
+
+    [Enhancement] Fix FS stalling as OffGCD
+
+commit 76ba6f1194bb3b6a96cd9fc8b3e687cce714037b
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Sun Sep 3 19:24:23 2017 -0400
+
+    [Subtlety] Update Shadow Dance Cooldown Display for DfA
+    
+    * Due to displaying in the main window, the Shadow Dance icon was using the full GCD rather than the special DfA timing
+    * Directly set the cooldown on the main frame to be 1.325s after the DfA cast
+
+commit e89c466bd089257e46d0e9f5a14a9e3d84657491
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Sun Sep 3 01:24:15 2017 -0400
+
+    [UI] Fix UI Scaling for QueuedCasts Frames
+    
+    * Apply the AethysRotationDB.ScaleUI multiplier to the queued casts frames so they match the other main icon frames when a scale is set
+    * Fixes https://github.com/SimCMinMax/AethysRotation/issues/42
+
+commit f062e0f23df987f9ab118269565680de1886c916
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Sat Sep 2 17:54:26 2017 -0400
+
+    [Subtlety] Fix Stealth Macro Finisher Predictions
+    
+    * Add an optional parameter to the Finish() function to allow StealthMacro() to pass in which stealth spell will be up for the Finisher
+
+commit ad53f8d53c82949122352b352503981acae58c65
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Sat Sep 2 19:30:38 2017 +0200
+
+    Fix balance lua
+
+commit 713b0f71fae721498ccfa5f6b56ff8431f871e76
+Author: Aethys256 <aethys256@users.noreply.github.com>
+Date:   Sat Sep 2 16:31:10 2017 +0200
+
+    [Subtlety] DfA+ShD order + Stealth OOC
+

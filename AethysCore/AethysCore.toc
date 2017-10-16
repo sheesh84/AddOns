@@ -1,0 +1,43 @@
+## Interface: 70300
+
+## Title: Aethys |cFFA330C9Core|r
+## Author: Aethys
+## Version: 7.3.0.01
+## Notes: Core Library used by AethysRotation and AethysTools. Can be used by others 3rd-Party Addons (like WeakAuras).
+
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## Dependencies: AethysCache
+## SavedVariables: AethysCoreDB
+
+Core.lua
+
+# GUI
+GUI\Panels.lua
+
+# API
+Settings.lua
+Deprecated.lua
+
+# Enum
+Enum\TriggerGCD.lua
+Enum\ProjectileSpeed.lua
+
+# Classes
+Class\Main.lua
+Class\Unit.lua
+Class\Player.lua
+Class\Pet.lua
+Class\Spell.lua
+Class\Item.lua
+
+# Misc
+Misc\ToSort.lua
+Misc\Enemies.lua
+
+# Events
+Events\Main.lua
+Events\Spell.lua
+Events\Prev_Spell.lua
+
+Main.lua

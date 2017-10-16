@@ -1,0 +1,72 @@
+lightweight tag 4631fa09d27dbf67405b8526b734851108a1bb0c 1.14.8-release
+Author:	Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:	Wed Sep 20 14:51:04 2017 +0200
+
+commit 4631fa09d27dbf67405b8526b734851108a1bb0c
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Wed Sep 20 14:51:04 2017 +0200
+
+    Version bump
+
+commit f25d637ba5b79a4d06047a860e1850ec90f9f55c
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Wed Sep 20 14:50:25 2017 +0200
+
+    Added option replace relic trait with NC preview
+
+commit 86b3c5c10c648a746341e11c62680c0d7aa8e2cd
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Mon Sep 18 16:34:15 2017 +0200
+
+    Keep window position on refresh
+
+commit a43160437a3ac8887772c75af13c2efbe52aaa90
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Mon Sep 18 15:59:15 2017 +0200
+
+    Option to replace a relic for preview exp
+
+commit bccffd95f714eadc1194ade708a5eeea870a11f7
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Mon Sep 18 11:09:48 2017 +0200
+
+    Enable NC extract for preview slot
+
+commit aec147ff3c7b29e75e220f526278afdb189f24b6
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Fri Sep 15 16:31:23 2017 +0200
+
+    NC extract option to keep base
+
+commit a4d299a98aada6a5a1eea87a6bf8456df53d2a94
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Fri Sep 15 16:06:43 2017 +0200
+
+    Current tree permutation !
+    
+    many options to come
+
+commit d0172d521c000320a0f74eb2f5f4e37f0c52d980
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Thu Sep 14 16:38:08 2017 +0200
+
+    New NC format export for NC gen
+
+commit f39a47894430d05e59c59cc75074019b0c636b6b
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Thu Sep 14 12:29:51 2017 +0200
+
+    More reset when switching NC gen
+
+commit 450a4e41174a39c717520e5acbabca94ae456b64
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Thu Sep 14 12:28:45 2017 +0200
+
+    New NC export format
+
+commit 051ca583be70a6e291c833e11212a70e68faed7d
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Wed Sep 13 22:07:08 2017 +0200
+
+    Reset crucible string when switching
+

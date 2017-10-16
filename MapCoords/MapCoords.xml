@@ -1,0 +1,99 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="MapCoords.lua"/>
+	<Script file="localization.lua"/>
+	<Frame name="MapCoordsFrame" parent="UIParent" hidden="true">
+		<Scripts>
+			<OnLoad>
+				MapCoords_OnLoad()
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	<Frame name="MapCoordsPortraitFrame" parent="UIParent" hidden="false" enableMouse="true" toplevel="true">
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="MapCoordsPlayerPortraitCoords" hidden="false" inherits="GameFontNormal" text="">
+					<Anchors>
+						<Anchor point="BOTTOM" relativeTo="PlayerFrame" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="-45" y="5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="MapCoordsParty1PortraitCoords" hidden="false" inherits="GameFontNormal" text="">
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="PartyMemberFrame1" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="-57" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="MapCoordsParty2PortraitCoords" hidden="false" inherits="GameFontNormal" text="">
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="PartyMemberFrame2" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="-57" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="MapCoordsParty3PortraitCoords" hidden="false" inherits="GameFontNormal" text="">
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="PartyMemberFrame3" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="-57" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="MapCoordsParty4PortraitCoords" hidden="false" inherits="GameFontNormal" text="">
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="PartyMemberFrame4" relativePoint="BOTTOM">
+							<Offset>
+								<AbsDimension x="-57" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnUpdate>
+				MapCoordsPlayer_OnUpdate()
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+    <Frame name="MapCoordsMiniMapFrame" parent="MinimapCluster" hidden="false" enableMouse="true" toplevel="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="MapCoordsMiniMap" hidden="false" inherits="GameFontNormal" text="">
+                    <Anchors>
+                        <Anchor point="BOTTOM" relativeTo="MinimapCluster" relativePoint="BOTTOM">
+                            <Offset>
+                                <AbsDimension x="12" y="0"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnUpdate>
+                MapCoordsMiniMap_OnUpdate()
+            </OnUpdate>
+        </Scripts>
+    </Frame>
+    <Frame name="MapCoordsWorldMapFrame" parent="WorldMapFrame" hidden="false" enableMouse="true" toplevel="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="MapCoordsWorldMap" hidden="false" inherits="GameFontNormal" text=""/>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnUpdate>
+                MapCoordsWorldMap_OnUpdate()
+            </OnUpdate>
+        </Scripts>
+    </Frame>
+</Ui>
