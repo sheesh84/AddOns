@@ -2,13 +2,16 @@
 --- ======= LOCALIZE =======
   -- Addon
   local addonName, AC = ...;
+  -- AethysCore
+  local Utils = AC.Utils;
   -- Lua
   local stringformat = string.format;
   local strsplit = strsplit;
   -- File Locals
   AC.GUI = {};
   local GUI = AC.GUI;
-  local StringToNumberIfPossible = AC.StringToNumberIfPossible;
+  local StringToNumberIfPossible = Utils.StringToNumberIfPossible;
+  local SubStringCount = Utils.SubStringCount;
 
 
 --- ============================ CONTENT ============================
@@ -92,7 +95,7 @@
   -- Make a dropdown
   local function CreateDropdown (Parent, Setting, Values, Text, Tooltip, Optionals)
     -- Constructor
-    local Dropdown = CreateFrame("Button", "$parent_"..Setting, Parent, "UIDropDownMenuTemplate")
+    local Dropdown = CreateFrame("Button", "$parent_"..Setting, Parent, "L_UIDropDownMenuTemplate")
     Parent[Setting] = Dropdown;
     Dropdown.SettingTable, Dropdown.SettingKey = FindSetting(Parent.SettingsTable, strsplit(".", Setting));
     Dropdown.SavedVariablesTable, Dropdown.SavedVariablesKey = Parent.SavedVariablesTable, Setting;
@@ -101,13 +104,13 @@
     local UpdateSetting;
     if Optionals and Optionals["ReloadRequired"] then
       UpdateSetting = function (self)
-        UIDropDownMenu_SetSelectedID(Dropdown, self:GetID());
-        Dropdown.SavedVariablesTable[Dropdown.SavedVariablesKey] = UIDropDownMenu_GetText(Dropdown);
+        L_UIDropDownMenu_SetSelectedID(Dropdown, self:GetID());
+        Dropdown.SavedVariablesTable[Dropdown.SavedVariablesKey] = L_UIDropDownMenu_GetText(Dropdown);
       end
     else
       UpdateSetting = function (self)
-        UIDropDownMenu_SetSelectedID(Dropdown, self:GetID());
-        local SettingValue = UIDropDownMenu_GetText(Dropdown);
+        L_UIDropDownMenu_SetSelectedID(Dropdown, self:GetID());
+        local SettingValue = L_UIDropDownMenu_GetText(Dropdown);
         Dropdown.SettingTable[Dropdown.SettingKey] = SettingValue;
         Dropdown.SavedVariablesTable[Dropdown.SavedVariablesKey] = SettingValue;
       end
@@ -122,18 +125,18 @@
     LastOptionAttached[Parent.name] = {Dropdown, 15, 0};
 
     local function Initialize (Self, Level)
-      local Info = UIDropDownMenu_CreateInfo();
+      local Info = L_UIDropDownMenu_CreateInfo();
       for Key, Value in pairs(Values) do
-        Info = UIDropDownMenu_CreateInfo();
+        Info = L_UIDropDownMenu_CreateInfo();
         Info.text = Value;
         Info.value = Value;
         Info.func = UpdateSetting;
-        UIDropDownMenu_AddButton(Info, Level);
+        L_UIDropDownMenu_AddButton(Info, Level);
       end
     end
-    UIDropDownMenu_Initialize(Dropdown, Initialize);
-    UIDropDownMenu_SetSelectedValue(Dropdown, Dropdown.SettingTable[Dropdown.SettingKey]);
-    UIDropDownMenu_JustifyText(Dropdown, "LEFT");
+    L_UIDropDownMenu_Initialize(Dropdown, Initialize);
+    L_UIDropDownMenu_SetSelectedValue(Dropdown, Dropdown.SettingTable[Dropdown.SettingKey]);
+    L_UIDropDownMenu_JustifyText(Dropdown, "LEFT");
 
     local Title = Dropdown:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     Parent[Setting .. "DropdownTitle"] = Title;
@@ -169,7 +172,6 @@
     local Name = Slider:GetName();
     _G[Name .. "Low"]:SetText(Slider.minValue);
     _G[Name .. "High"]:SetText(Slider.maxValue);
-    _G[Name .. "Text"]:SetText("|c00dfb802" .. Text .. "|r");
 
     AnchorTooltip(Slider, FilterTooltip(Tooltip, Optionals));
 
@@ -180,6 +182,11 @@
     ShowValue:SetWidth(50);
     ShowValue:SetJustifyH("CENTER");
     ShowValue:SetText(stringformat("%.2f", Slider.SettingTable[Slider.SettingKey]));
+    
+    local Label = Slider:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    Label:SetPoint("BOTTOMLEFT", Slider, "TOPLEFT")
+    Label:SetJustifyH("LEFT")
+    Label:SetText("|c00dfb802" .. Text .. "|r");
 
     if Optionals and Optionals["ReloadRequired"] then
       UpdateSetting = function (self)
@@ -214,7 +221,7 @@
   function GUI.CreateChildPanel (Parent, CName)
     -- Indent the child if needed
     local ParentName = Parent:GetName()
-    local CLevel = AC.SubStringCount(ParentName, "_ChildPanel_");
+    local CLevel = SubStringCount(ParentName, "_ChildPanel_");
     local CName = CName;
     for i = 0, CLevel do
       CName = "   " .. CName;

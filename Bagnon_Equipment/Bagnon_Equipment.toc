@@ -1,0 +1,9 @@
+## Interface: 60000
+## Title: Bagnon Equipment
+## Notes: Marks each item in the Bagnon inventory with equipment set icons (only supports WoW equipment sets)
+## Author: Jan Smrcina
+## X-Category: Inventory
+## X-License: GNU General Public License Version 3
+## Dependencies: Bagnon
+
+Bagnon_Equipment.lua

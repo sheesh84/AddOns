@@ -97,7 +97,7 @@ Item.Shaman.Elemental = {
 
   -- Misc
   PoPP                      = Item(142117),
-  Healthstone               = Item(5512)
+  Healthstone               = Item(5512),
 }
 local I = Item.Shaman.Elemental
 
@@ -116,34 +116,30 @@ local function APL ()
   if not Player:AffectingCombat() then
     -- Opener
     if Target:Exists() and Player:CanAttack(Target) and not Target:IsDeadOrGhost() then
-      if S.LavaBurst:IsCastable() then
-        if not Player:Buff(S.ResonanceTotemBuff) then
-          if AR.Cast(S.TotemMastery) then return "Cast TotemMastery" end
-        elseif Target:IsInRange(40) then
-          if AR.Cast(S.LightningBolt) then return "Cast LightningBolt" end
-        end
+      if not Player:Buff(S.ResonanceTotemBuff) then
+        if AR.Cast(S.TotemMastery) then return "Cast TotemMastery" end
+      elseif S.LightningBolt:IsCastable(40) then
+        if AR.Cast(S.LightningBolt) then return "Cast LightningBolt" end
       end
     end
     return
   end
 
   -- Interrupts
-  if S.WindShear:IsCastable() and Target:IsInterruptible() and Settings.General.InterruptEnabled then
-    if Target:IsInRange(30) then
-      if AR.Cast(S.WindShear, Settings.Shaman.Commons.OffGCDasOffGCD.WindShear) then return "Cast WindShear" end
-    end
+  if S.WindShear:IsCastable(30) and Target:IsInterruptible() and Settings.General.InterruptEnabled then
+    if AR.Cast(S.WindShear, Settings.Shaman.Commons.OffGCDasOffGCD.WindShear) then return "Cast WindShear" end
   end
 
   -- In Combat
   if Target:Exists() and Player:CanAttack(Target) and not Target:IsDeadOrGhost() then
     -- Potion of Prolonged Power
     if Settings.Shaman.Commons.ShowPoPP and Target:MaxHealth() >= 250000000 and (I.PoPP:IsReady() and (Player:HasHeroism() or Target:TimeToDie() <= 80 or Target:HealthPercentage() < 35)) then
-      if AR.CastLeft(I.PoPP) then return "Use PoPP" end
+      if AR.CastSuggested(I.PoPP) then return "Use PoPP" end
     end
 
     -- Use healthstone if we have it and our health is low.
     if Settings.Shaman.Commons.HealthstoneEnabled and (I.Healthstone:IsReady() and Player:HealthPercentage() <= 60) then
-      if AR.CastLeft(I.Healthstone) then return "Use Healthstone" end
+      if AR.CastSuggested(I.Healthstone) then return "Use Healthstone" end
     end
 
     -- Heal when we have less than the set health threshold (instant casts only)!
@@ -154,7 +150,7 @@ local function APL ()
     end
 
     -- On use trinkets.
-    if Settings.Shaman.Commons.OnUseTrinkets and I.SpecterOfBetrayal:IsEquipped() and Target:IsInRange(5) and S.SpecterOfBetrayal:TimeSinceLastCast() > 45 then
+    if Settings.Shaman.Commons.OnUseTrinkets and I.SpecterOfBetrayal:IsEquipped() and Target:IsInRange(5) and S.SpecterOfBetrayal:TimeSinceLastCast() > 45 and not Player:IsMoving() then
       if AR.CastSuggested(I.SpecterOfBetrayal) then return "Use SpecterOfBetrayal" end
     end
 
@@ -254,13 +250,13 @@ local function APL ()
       end
 
       -- actions.aoe+=/lava_burst,moving=1
-      if S.LavaBurst:IsCastable() then
+      if S.LavaBurst:IsCastable() and Player:IsMoving() then
         if AR.Cast(S.LavaBurst) then return "Cast LavaBurst" end
       end
 
       -- TODO: refreshable
       -- actions.aoe+=/flame_shock,moving=1,target_if=refreshable
-      if S.FlameShock:IsCastable() then
+      if S.FlameShock:IsCastable() and Player:IsMoving() then
         if AR.Cast(S.FlameShock) then return "Cast FlameShock" end
       end
     end
@@ -361,19 +357,19 @@ local function APL ()
       end
 
       -- actions.single_asc+=/flame_shock,moving=1,target_if=refreshable
-      if S.FlameShock:IsCastable() then
+      if S.FlameShock:IsCastable() and Player:IsMoving() then
         if AR.Cast(S.FlameShock) then return "Cast FlameShock" end
       end
 
       -- actions.single_asc+=/earth_shock,moving=1
-      if S.EarthShock:IsCastable() then
+      if S.EarthShock:IsCastable() and Player:IsMoving() then
         if Player:Maelstrom() >= 10 then
           if AR.Cast(S.EarthShock) then return "Cast EarthShock" end
         end
       end
 
       -- actions.single_asc+=/flame_shock,moving=1,if=movement.distance>6
-      if S.FlameShock:IsCastable() then
+      if S.FlameShock:IsCastable() and Player:IsMoving() then
         if AR.Cast(FlameShock) then return "Cast FlameShock" end
       end
     end
@@ -446,7 +442,7 @@ local function APL ()
       end
 
       -- actions.single_if+=/frost_shock,moving=1,if=buff.icefury.up
-      if S.FrostShock:IsCastable() and (Player:Buff(S.IcefuryBuff)) then
+      if S.FrostShock:IsCastable() and (Player:IsMoving() and Player:Buff(S.IcefuryBuff)) then
         if AR.Cast(S.FrostShock) then return "Cast FrostShock" end
       end
 
@@ -485,19 +481,19 @@ local function APL ()
       end
 
       -- actions.single_if+=/flame_shock,moving=1,target_if=refreshable
-      if S.FlameShock:IsCastable() then
+      if S.FlameShock:IsCastable() and Player:IsMoving() then
         if AR.Cast(S.FlameShock) then return "Cast FlameShock" end
       end
 
       -- actions.single_if+=/earth_shock,moving=1
-      if S.EarthShock:IsCastable() then
+      if S.EarthShock:IsCastable() and Player:IsMoving() then
         if Player:Maelstrom() >= 10 then
           if AR.Cast(S.EarthShock) then return "Cast FlameShock" end
         end
       end
 
       -- actions.single_if+=/flame_shock,moving=1,if=movement.distance>6
-      if S.FlameShock:IsCastable() then
+      if S.FlameShock:IsCastable() and Player:IsMoving() then
         if AR.Cast(S.FlameShock) then return "Cast FlameShock" end
       end
     end
@@ -593,19 +589,19 @@ local function APL ()
       end
 
       -- actions.single_lr+=/flame_shock,moving=1,target_if=refreshable
-      if S.FlameShock:IsCastable() and (Target:DebuffRemains(S.FlameShockDebuff < 3)) then
+      if S.FlameShock:IsCastable() and (Player:IsMoving() and Target:DebuffRemains(S.FlameShockDebuff < 3)) then
         if AR.Cast(S.FlameShock) then return "Cast FlameShock" end
       end
 
       -- actions.single_lr+=/earth_shock,moving=1
-      if S.EarthShock:IsCastable() then
+      if S.EarthShock:IsCastable() and Player:IsMoving() then
         if Player:Maelstrom() >= 10 then
           if AR.Cast(S.EarthShock) then return "Cast EarthShock" end
         end
       end
 
       -- actions.single_lr+=/flame_shock,moving=1,if=movement.distance>6
-      if S.FlameShock:IsCastable() then
+      if S.FlameShock:IsCastable() and Player:IsMoving() then
         if AR.Cast(S.FlameShock) then return "Cast FlameShock" end
       end
     end

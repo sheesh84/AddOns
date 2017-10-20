@@ -89,6 +89,8 @@ if not Item.Warrior then Item.Warrior = {} end
 Item.Warrior.Arms = {
   -- Legendaries
   TheGreatStormsEye = Item(151823, {1}),
+  -- Misc
+  PoPP                      = Item(142117),
 };
 local I = Item.Warrior.Arms;
 
@@ -109,7 +111,6 @@ end
 local function APL ()
   -- Unit Update
   AC.GetEnemies(8);  -- WhirlWind
-  AC.GetEnemies(5);  -- Melee
 
   -- Out of Combat
   if not Player:AffectingCombat() then
@@ -123,14 +124,19 @@ local function APL ()
   end
 
   -- Interrupts
-  if Settings.General.InterruptEnabled and Target:IsInterruptible() and Target:IsInRange(5) then
+  if Settings.General.InterruptEnabled and Target:IsInterruptible() and Target:IsInRange("Melee") then
     if S.Pummel:IsReady() then
       if AR.Cast(S.Pummel, Settings.Commons.OffGCDasOffGCD.Pummel) then return "Cast Pummel"; end
     end
   end
 
   -- In Combat
-  if Target:Exists() and Player:CanAttack(Target) and Target:IsInRange(5) and not Target:IsDeadOrGhost() then
+  if Target:Exists() and Player:CanAttack(Target) and Target:IsInRange("Melee") and not Target:IsDeadOrGhost() then
+    -- Potion of Prolonged Power
+    if Settings.Arms.ShowPoPP and Target:MaxHealth() >= 250000000 and (I.PoPP:IsReady() and (Player:HasHeroism() or Target:TimeToDie() <= 90 or Target:HealthPercentage() < 35 or Player:Buff(S.BattleCryBuff))) then
+      if AR.CastSuggested(I.PoPP) then return "Use PoPP" end
+    end
+
     -- Racial
     -- actions+=/blood_fury,if=buff.battle_cry.up|target.time_to_die<=16
     if S.BloodFury:IsReady() and AR.CDsON() and (Player:Buff(S.BattleCryBuff) or Target:TimeToDie() <= 16) then
@@ -145,20 +151,20 @@ local function APL ()
 
     -- Racial
     -- actions+=/arcane_torrent,if=buff.battle_cry_deadly_calm.down&rage.deficit>40&cooldown.battle_cry.remains
-    if S.ArcaneTorrent:IsReady() and AR.CDsON() and (not battle_cry_deadly_calm() and Player:RageDeficit() > 40 and S.BattleCry:CooldownRemains() > 0) then
+    if S.ArcaneTorrent:IsReady() and AR.CDsON() and (not battle_cry_deadly_calm() and Player:RageDeficit() > 40 and S.BattleCry:CooldownRemainsP() > 0) then
       if AR.Cast(S.ArcaneTorrent, Settings.Commons.OffGCDasOffGCD.Racials) then return "Cast ArcaneTorrent" end
     end
 
     -- Omit gcd.remains on this offGCD because we can't react quickly enough otherwise (the intention is to cast this before the next GCD ability, but is a OffGCD abiltiy).
     -- actions+=/avatar,if=gcd.remains<0.25&(buff.battle_cry.up|cooldown.battle_cry.remains<15)|target.time_to_die<=20
-    if S.Avatar:IsReady() and AR.CDsON() and ((Player:Buff(S.BattleCryBuff) or S.BattleCry:Cooldown() < 15) or Target:TimeToDie() <= 20) then
-      if AR.Cast(S.Avatar, Settings.Arms.OffGCDasOffGCD.Avatar) then return "Cast Avatar" end
+    if S.Avatar:IsReady() and AR.CDsON() and ((Player:Buff(S.BattleCryBuff) or S.BattleCry:CooldownRemainsP() < 15) or Target:TimeToDie() <= 20) then
+      if AR.Cast(S.Avatar, Settings.Commons.OffGCDasOffGCD.Avatar) then return "Cast Avatar" end
     end
 
     -- Omit gcd.remains on this offGCD because we can't react quickly enough otherwise (the intention is to cast this before the next GCD ability, but is a OffGCD abiltiy).
     -- actions+=/battle_cry,if=target.time_to_die<=6|(gcd.remains<=0.5&prev_gcd.1.ravager)|!talent.ravager.enabled&!gcd.remains&target.debuff.colossus_smash.remains>=5&(!cooldown.bladestorm.remains|!set_bonus.tier20_4pc)&(!talent.rend.enabled|dot.rend.remains>4)
-    if S.BattleCry:IsReady() and AR.CDsON() and (Target:TimeToDie() <= 6 or (Player:PrevGCD(1, S.Ravager)) or not S.Ravager:IsAvailable() and Target:DebuffRemains(S.ColossusSmashDebuff) >= 5 and (S.Bladestorm:CooldownRemains() == 0 or not AC.Tier20_4Pc) and (not S.Rend:IsAvailable() or Target:DebuffRemains(S.RendDebuff) > 4)) then
-      if AR.Cast(S.BattleCry, Settings.Arms.OffGCDasOffGCD.BattleCry) then return "Cast BattleCry" end
+    if S.BattleCry:IsReady() and AR.CDsON() and (Target:TimeToDie() <= 6 or (Player:PrevGCD(1, S.Ravager)) or not S.Ravager:IsAvailable() and Target:DebuffRemainsP(S.ColossusSmashDebuff) >= 5 and (S.Bladestorm:CooldownRemainsP() == 0 or not AC.Tier20_4Pc) and (not S.Rend:IsAvailable() or Target:DebuffRemainsP(S.RendDebuff) > 4)) then
+      if AR.Cast(S.BattleCry, Settings.Commons.OffGCDasOffGCD.BattleCry) then return "Cast BattleCry" end
     end
 
     -- actions+=/run_action_list,name=cleave,if=spell_targets.whirlwind>=2&talent.sweeping_strikes.enabled
@@ -196,13 +202,13 @@ local function APL ()
       end
 
       -- actions.cleave+=/rend,if=remains<=duration*0.3
-      if S.Rend:IsReady() and (Target:DebuffRemains(S.RendDebuff) <= Target:DebuffDuration(S.RendDebuff) * 0.3) then
+      if S.Rend:IsReady() and (Target:DebuffRemainsP(S.RendDebuff) <= Target:DebuffDuration(S.RendDebuff) * 0.3) then
         if AR.Cast(S.Rend) then return "Cast Rend" end
       end
 
       -- actions.cleave+=/bladestorm
       if S.Bladestorm:IsReady() then
-        if AR.Cast(S.Bladestorm) then return "Cast Bladestorm" end
+        if AR.Cast(S.Bladestorm, Settings.Arms.GCDasOffGCD.Bladestorm) then return "Cast Bladestorm" end
       end
 
       -- actions.cleave+=/cleave
@@ -229,7 +235,7 @@ local function APL ()
     -- actions+=/run_action_list,name=aoe,if=spell_targets.whirlwind>=5&!talent.sweeping_strikes.enabled
     if AR.AoEON() and (Cache.EnemiesCount[8] >= 5 and not S.SweepingStrikes:IsAvailable()) then
       -- actions.aoe=warbreaker,if=(cooldown.bladestorm.up|cooldown.bladestorm.remains<=gcd)&(cooldown.battle_cry.up|cooldown.battle_cry.remains<=gcd)
-      if S.Warbreaker:IsReady() and ((S.Bladestorm:CooldownRemains() == 0 or S.Bladestorm:CooldownRemains() <= Player:GCD()) and (S.BattleCry:CooldownRemains() == 0 or S.BattleCry:CooldownRemains() <= Player:GCD())) then
+      if S.Warbreaker:IsReady() and ((S.Bladestorm:CooldownRemainsP() == 0 or S.Bladestorm:CooldownRemainsP() <= Player:GCD()) and (S.BattleCry:CooldownRemainsP() == 0 or S.BattleCry:CooldownRemainsP() <= Player:GCD())) then
         if Settings.Arms.WarbreakerEnabled then
           if AR.Cast(S.Warbreaker, Settings.Arms.GCDasOffGCD.Warbreaker) then return "Cast Warbreaker" end
         end
@@ -237,7 +243,7 @@ local function APL ()
 
       -- actions.aoe+=/bladestorm,if=buff.battle_cry.up&(set_bonus.tier20_4pc|equipped.the_great_storms_eye)
       if S.Bladestorm:IsReady() and (Player:Buff(S.BattleCryBuff) and (AC.Tier20_4Pc or I.TheGreatStormsEye:IsEquipped())) then
-        if AR.Cast(S.Bladestorm) then return "Cast Bladestorm" end
+        if AR.Cast(S.Bladestorm, Settings.Arms.GCDasOffGCD.Bladestorm) then return "Cast Bladestorm" end
       end
 
       -- actions.aoe+=/colossus_smash,if=buff.in_for_the_kill.down&talent.in_for_the_kill.enabled
@@ -281,7 +287,7 @@ local function APL ()
       end
 
       -- actions.aoe+=/rend,cycle_targets=1,if=remains<=duration*0.3&spell_targets.whirlwind<=3
-      if S.Rend:IsReady() and (Target:DebuffRemains(S.RendDebuff) <= Target:DebuffDuration(S.RendDebuff) * 0.3 and Cache.EnemiesCount[8] <= 3) then
+      if S.Rend:IsReady() and (Target:DebuffRemainsP(S.RendDebuff) <= Target:DebuffDuration(S.RendDebuff) * 0.3 and Cache.EnemiesCount[8] <= 3) then
         if AR.Cast(S.Rend) then return "Cast Rend" end
       end
 
@@ -300,16 +306,16 @@ local function APL ()
     if Target:HealthPercentage() <= 20 and Cache.EnemiesCount[8] < 5 then
       -- actions.execute=bladestorm,if=buff.battle_cry.up&(set_bonus.tier20_4pc|equipped.the_great_storms_eye)
       if S.Bladestorm:IsReady() and (Player:Buff(S.BattleCryBuff) and (AC.Tier20_4Pc or I.TheGreatStormsEye:IsEquipped())) then
-        if AR.Cast(S.Bladestorm) then return "Cast Bladestorm" end
+        if AR.Cast(S.Bladestorm, Settings.Arms.GCDasOffGCD.Bladestorm) then return "Cast Bladestorm" end
       end
 
       -- actions.execute+=/colossus_smash,if=buff.shattered_defenses.down&(buff.battle_cry.down|buff.battle_cry.remains>gcd.max)
-      if S.ColossusSmash:IsReady() and (not Player:Buff(S.ShatteredDefensesBuff) and (not Player:Buff(S.BattleCryBuff) or Player:BuffRemains(S.BattleCryBuff) > Player:GCD())) then
+      if S.ColossusSmash:IsReady() and (not Player:Buff(S.ShatteredDefensesBuff) and (not Player:Buff(S.BattleCryBuff) or Player:BuffRemainsP(S.BattleCryBuff) > Player:GCD())) then
         if AR.Cast(S.ColossusSmash) then return "Cast ColossusSmash" end
       end
 
       -- actions.execute+=/warbreaker,if=(raid_event.adds.in>90|!raid_event.adds.exists)&cooldown.mortal_strike.remains<=gcd.remains&buff.shattered_defenses.down&buff.executioners_precision.stack=2
-      if S.Warbreaker:IsReady() and (S.MortalStrike:Cooldown() <= Player:GCDRemains() and not Player:Buff(S.ShatteredDefensesBuff) and Target:DebuffStack(S.ExecutionersPrecisionDebuff) == 2) then
+      if S.Warbreaker:IsReady() and (S.MortalStrike:CooldownRemainsP() <= Player:GCDRemains() and not Player:Buff(S.ShatteredDefensesBuff) and Target:DebuffStack(S.ExecutionersPrecisionDebuff) == 2) then
         if Settings.Arms.WarbreakerEnabled then
           if AR.Cast(S.Warbreaker, Settings.Arms.GCDasOffGCD.Warbreaker) then return "Cast Warbreaker" end
         end
@@ -321,13 +327,13 @@ local function APL ()
       end
 
       -- actions.execute+=/rend,if=remains<5&cooldown.battle_cry.remains<2&(cooldown.bladestorm.remains<2|!set_bonus.tier20_4pc)
-      if S.Rend:IsReady() and (Target:DebuffRemains(S.RendDebuff) < 5 and S.BattleCry:CooldownRemains() < 2 and (S.Bladestorm:CooldownRemains() < 2 or not AC.Tier20_4Pc)) then
+      if S.Rend:IsReady() and (Target:DebuffRemainsP(S.RendDebuff) < 5 and S.BattleCry:CooldownRemainsP() < 2 and (S.Bladestorm:CooldownRemainsP() < 2 or not AC.Tier20_4Pc)) then
         if AR.Cast(S.Rend) then return "Cast Rend" end
       end
 
       -- actions.execute+=/ravager,if=cooldown.battle_cry.remains<=gcd&debuff.colossus_smash.remains>6
-      if S.Ravager:IsReady() and (S.BattleCry:Cooldown() <= Player:GCD() and Target:DebuffRemains(S.ColossusSmashDebuff) > 6) then
-        if AR.Cast(S.Ravager) then return "Cast Ravager" end
+      if S.Ravager:IsReady() and (S.BattleCry:CooldownRemainsP() <= Player:GCD() and Target:DebuffRemainsP(S.ColossusSmashDebuff) > 6) then
+        if AR.Cast(S.Ravager, Settings.Arms.GCDasOffGCD.Ravager) then return "Cast Ravager" end
       end
 
       -- actions.execute+=/mortal_strike,if=buff.executioners_precision.stack=2&buff.shattered_defenses.up
@@ -347,7 +353,7 @@ local function APL ()
 
       -- actions.execute+=/bladestorm,interrupt=1,if=(raid_event.adds.in>90|!raid_event.adds.exists|spell_targets.bladestorm_mh>desired_targets)&!set_bonus.tier20_4pc
       if S.Bladestorm:IsReady() and (Cache.EnemiesCount[8] > 1 and not AC.Tier20_4Pc) then
-        if AR.Cast(S.Bladestorm) then return "Cast Bladestorm" end
+        if AR.Cast(S.Bladestorm, Settings.Arms.GCDasOffGCD.Bladestorm) then return "Cast Bladestorm" end
       end
     end
 
@@ -355,7 +361,7 @@ local function APL ()
     if Target:HealthPercentage() > 20 then
       -- actions.single=bladestorm,if=buff.battle_cry.up&set_bonus.tier20_4pc
       if S.Bladestorm:IsReady() and (Player:Buff(S.BattleCryBuff) and AC.Tier20_4Pc) then
-        if AR.Cast(S.Bladestorm) then return "Cast Bladestorm" end
+        if AR.Cast(S.Bladestorm, Settings.Arms.GCDasOffGCD.Bladestorm) then return "Cast Bladestorm" end
       end
 
       -- actions.single+=/colossus_smash,if=buff.shattered_defenses.down
@@ -364,25 +370,25 @@ local function APL ()
       end
 
       -- actions.single+=/warbreaker,if=(raid_event.adds.in>90|!raid_event.adds.exists)&((talent.fervor_of_battle.enabled&debuff.colossus_smash.remains<gcd)|!talent.fervor_of_battle.enabled&((buff.stone_heart.up|cooldown.mortal_strike.remains<=gcd.remains)&buff.shattered_defenses.down))
-      if S.Warbreaker:IsReady() and ((S.FervorOfBattle:IsAvailable() and Target:DebuffRemains(S.ColossusSmashDebuff) < Player:GCD()) or not S.FervorOfBattle:IsAvailable() and ((Player:Buff(S.StoneHeartBuff) or S.MortalStrike:CooldownRemains() <= Player:GCDRemains()) and not Player:Buff(S.ShatteredDefensesBuff))) then
+      if S.Warbreaker:IsReady() and ((S.FervorOfBattle:IsAvailable() and Target:DebuffRemainsP(S.ColossusSmashDebuff) < Player:GCD()) or not S.FervorOfBattle:IsAvailable() and ((Player:Buff(S.StoneHeartBuff) or S.MortalStrike:CooldownRemainsP() <= Player:GCDRemains()) and not Player:Buff(S.ShatteredDefensesBuff))) then
         if Settings.Arms.WarbreakerEnabled then
           if AR.Cast(S.Warbreaker, Settings.Arms.GCDasOffGCD.Warbreaker) then return "Cast Warbreaker" end
         end
       end
 
       -- actions.single+=/focused_rage,if=!buff.battle_cry_deadly_calm.up&buff.focused_rage.stack<3&!cooldown.colossus_smash.up&(rage>=130|debuff.colossus_smash.down|talent.anger_management.enabled&cooldown.battle_cry.remains<=8)
-      if S.FocusedRage:IsReady() and (not battle_cry_deadly_calm() and Player:BuffStack(S.FocusedRageBuff) < 3 and S.ColossusSmash:CooldownRemains() > 0 and (Player:Rage() >= 130 or Target:Debuff(S.ColossusSmashDebuff) or (S.AngerManagement:IsAvailable() and S.BattleCry:CooldownRemains() <= 8))) then
+      if S.FocusedRage:IsReady() and (not battle_cry_deadly_calm() and Player:BuffStack(S.FocusedRageBuff) < 3 and S.ColossusSmash:CooldownRemainsP() > 0 and (Player:Rage() >= 130 or Target:Debuff(S.ColossusSmashDebuff) or (S.AngerManagement:IsAvailable() and S.BattleCry:CooldownRemainsP() <= 8))) then
         if AR.Cast(S.FocusedRage, Settings.Arms.OffGCDasOffGCD.FocusedRage) then return "Cast FocusedRage" end
       end
 
       -- actions.single+=/rend,if=remains<=gcd.max|remains<5&cooldown.battle_cry.remains<2&(cooldown.bladestorm.remains<2|!set_bonus.tier20_4pc)
-      if S.Rend:IsReady() and (Target:DebuffRemains(S.RendDebuff) < 5 and S.BattleCry:CooldownRemains() < 2 and (S.Bladestorm:CooldownRemains() < 2 or not AC.Tier20_4Pc)) then
+      if S.Rend:IsReady() and (Target:DebuffRemainsP(S.RendDebuff) < 5 and S.BattleCry:CooldownRemainsP() < 2 and (S.Bladestorm:CooldownRemainsP() < 2 or not AC.Tier20_4Pc)) then
         if AR.Cast(S.Rend) then return "Cast Rend" end
       end
 
       -- actions.single+=/ravager,if=cooldown.battle_cry.remains<=gcd&debuff.colossus_smash.remains>6
-      if S.Ravager:IsReady() and (S.BattleCry:Cooldown() <= Player:GCD() and Target:DebuffRemains(S.ColossusSmashDebuff) > 6) then
-        if AR.Cast(S.Ravager) then return "Cast Ravager" end
+      if S.Ravager:IsReady() and (S.BattleCry:CooldownRemainsP() <= Player:GCD() and Target:DebuffRemainsP(S.ColossusSmashDebuff) > 6) then
+        if AR.Cast(S.Ravager, Settings.Arms.GCDasOffGCD.Ravager) then return "Cast Ravager" end
       end
 
       -- actions.single+=/execute,if=buff.stone_heart.react
@@ -401,7 +407,7 @@ local function APL ()
       end
 
       -- actions.single+=/rend,if=remains<=duration*0.3
-      if S.Rend:IsReady() and (Target:DebuffRemains(S.RendDebuff) <= Target:DebuffDuration(S.RendDebuff) * 0.3) then
+      if S.Rend:IsReady() and (Target:DebuffRemainsP(S.RendDebuff) <= Target:DebuffDuration(S.RendDebuff) * 0.3) then
         if AR.Cast(S.Rend) then return "Cast Rend" end
       end
 
@@ -411,7 +417,7 @@ local function APL ()
       end
 
       -- actions.single+=/slam,if=spell_targets.whirlwind=1&!talent.fervor_of_battle.enabled&(rage>=52|!talent.rend.enabled|!talent.ravager.enabled)
-      if S.Slam:IsReady() and (Cache.EnemiesCount[5] <= 1 and not S.FervorOfBattle:IsAvailable() and (Player:Rage() >= 52 or not S.Rend:IsAvailable() or not S.Ravager:IsAvailable())) then
+      if S.Slam:IsReady() and (Cache.EnemiesCount[8] <= 1 and not S.FervorOfBattle:IsAvailable() and (Player:Rage() >= 52 or not S.Rend:IsAvailable() or not S.Ravager:IsAvailable())) then
         if AR.Cast(S.Slam) then return "Cast Slam" end
       end
 
@@ -422,7 +428,7 @@ local function APL ()
 
       -- actions.single+=/bladestorm,if=(raid_event.adds.in>90|!raid_event.adds.exists)&!set_bonus.tier20_4pc
       if S.Bladestorm:IsReady() and (not AC.Tier20_4Pc) then
-        if AR.Cast(S.Bladestorm) then return "Cast Bladestorm" end
+        if AR.Cast(S.Bladestorm, Settings.Arms.GCDasOffGCD.Bladestorm) then return "Cast Bladestorm" end
       end
     end
     if AR.Cast(S.PoolFocus) then return "Cast PoolFocus" end

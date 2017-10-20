@@ -1,8 +1,10 @@
-**If you are using Curse Client V5, please update it to Twitch Client or download manually the addon, it's not longer supported by Curse and contains bugged updates.**
 
-**If you are experiencing issues with AoE rotation (likely Abilities not being recommended), be sure to have enemies nameplates enabled and enough nameplate shown (camera can hide them).**
+**If you are using Curse Client V5, please upgrade to Twitch Client or download manually the addon, it's no longer supported by Curse and contains bugged updates.**
+
+**If you are experiencing issues with AoE rotation (likely Abilities not being recommended), be sure to have enemies nameplates enabled and enough nameplates shown (camera can hide them).**
 
 # AethysRotation
+[![GitHub license](https://img.shields.io/badge/license-EUPL-blue.svg)](https://raw.githubusercontent.com/SimCMinMax/AethysRotation/master/LICENSE) [![GitHub forks](https://img.shields.io/github/forks/SimCMinMax/AethysRotation.svg)](https://github.com/SimCMinMax/AethysRotation/network) [![GitHub stars](https://img.shields.io/github/stars/SimCMinMax/AethysRotation.svg)](https://github.com/SimCMinMax/AethysRotation/stargazers) [![GitHub issues](https://img.shields.io/github/issues/SimCMinMax/AethysRotation.svg)](https://github.com/SimCMinMax/AethysRotation/issues)
 
 AethysRotation is a World of Warcraft addon to provide the player useful and precise information to execute the best possible DPS rotation in every situation.
 The project is hosted on [GitHub](https://github.com/SimCMinMax/AethysRotation) and powered by [AethysCore](https://github.com/SimCMinMax/AethysCore).
@@ -34,27 +36,32 @@ Every rotation is based on [SimulationCraft](http://simulationcraft.org/) [Actio
 - Solo Mode to prioritize survivability over DPS. (If implemented in the rotation)
 
 ## Supported Rotations
-- Death Knight Frost ([chrislopez24](https://github.com/chrislopez24) & [3L00DStrike](https://github.com/3L00DStrike))
-- Death Knight Unholy ([chrislopez24](https://github.com/chrislopez24))
-- Demon Hunter Vengeance **[Outdated]**
-- Druid Balance ([KutiKuti](https://github.com/Kutikuti)) **[WIP]**
-- Hunter BeastMastery ([Nia](https://github.com/Nianel))
-- Hunter Marskmanship ([Nia](https://github.com/Nianel))
-- Hunter Survival ([Nia](https://github.com/Nianel))
-- Mage Frost ([Glynny](https://github.com/Glynnyx) & [Zulandia](https://github.com/AlexanderKenny) & [Nia](https://github.com/Nianel))
-- Monk Windwalker ([Lockem90](https://github.com/Lockem90))
-- Paladin Protection ([Aethys](https://github.com/Aethys256) & [chrislopez24](https://github.com/chrislopez24))
-- Paladin Retribution ([Aethys](https://github.com/Aethys256))
-- Priest Shadow ([KutiKuti](https://github.com/Kutikuti))
-- Rogue Assassination ([Aethys](https://github.com/Aethys256) & [Mystler](https://github.com/Mystler))
-- Rogue Outlaw ([Aethys](https://github.com/Aethys256) & [Mystler](https://github.com/Mystler))
-- Rogue Subtlety ([Aethys](https://github.com/Aethys256) & [Mystler](https://github.com/Mystler))
-- Shaman Elemental ([lithium720](https://github.com/lithium720)) **[WIP]**
-- Shaman Enhancement ([lithium720](https://github.com/lithium720) & [Tael](https://github.com/Tae-l))
-- Warlock Demonology ([KutiKuti](https://github.com/Kutikuti))
-- Warlock Destruction ([KutiKuti](https://github.com/Kutikuti))
-- Warrior Arms ([lithium720](https://github.com/lithium720))
-- Warrior Fury ([Lockem90](https://github.com/Lockem90) & [Nia](https://github.com/Nianel))
+| Class        | Specs                                                                                 |                                                                                   |                                                                                 |
+| :---         | :---                                                                                  | :---                                                                              | :---                                                                            |
+| Death Knight | [![Blood](https://img.shields.io/badge/Blood-WIP-orange.svg)]()                       | [![Frost](https://img.shields.io/badge/Frost-OK-brightgreen.svg)]()               | [![Unholy](https://img.shields.io/badge/Unholy-OK-brightgreen.svg)]()           |
+| Demon Hunter | [![Vengeance](https://img.shields.io/badge/Vengeance-Outdated-red.svg)]()             |                                                                                   |                                                                                 |
+| Druid        | [![Balance](https://img.shields.io/badge/Balance-OK-brightgreen.svg)]()               | [![Guardian](https://img.shields.io/badge/Guardian-OK-brightgreen.svg)]()         |                                                                                 |
+| Hunter       | [![Beast Mastery](https://img.shields.io/badge/Beast%20Mastery-OK-brightgreen.svg)]() | [![Marksmanship](https://img.shields.io/badge/Marksmanship-OK-brightgreen.svg)]() | [![Survival](https://img.shields.io/badge/Survival-OK-brightgreen.svg)]()       |
+| Mage         | [![Frost](https://img.shields.io/badge/Frost-OK-brightgreen.svg)]()                   | [![Fire](https://img.shields.io/badge/Fire-WIP-orange.svg)]()                     |                                                                                 |
+| Monk         | [![Windwalker](https://img.shields.io/badge/Windwalker-OK-brightgreen.svg)]()         |                                                                                   |                                                                                 |
+| Paladin      | [![Protection](https://img.shields.io/badge/Protection-OK-brightgreen.svg)]()         | [![Retribution](https://img.shields.io/badge/Retribution-OK-brightgreen.svg)]()   |                                                                                 |
+| Priest       | [![Shadow](https://img.shields.io/badge/Shadow-OK-brightgreen.svg)]()                 |                                                                                   |                                                                                 |
+| Rogue        | [![Assassination](https://img.shields.io/badge/Assassination-OK-brightgreen.svg)]()   | [![Outlaw](https://img.shields.io/badge/Outlaw-OK-brightgreen.svg)]()             | [![Subtlety](https://img.shields.io/badge/Subtlety-OK-brightgreen.svg)]()       |
+| Shaman       | [![Enhancement](https://img.shields.io/badge/Enhancement-OK-brightgreen.svg)]()       | [![Elemental](https://img.shields.io/badge/Elemental-WIP-orange.svg)]()           |                                                                                 |
+| Warlock      | [![Affliction](https://img.shields.io/badge/Affliction-OK-brightgreen.svg)]()         | [![Demonology](https://img.shields.io/badge/Demonology-OK-brightgreen.svg)]()     | [![Destruction](https://img.shields.io/badge/Destruction-OK-brightgreen.svg)]() |
+| Warrior      | [![Arms](https://img.shields.io/badge/Arms-OK-brightgreen.svg)]()                     | [![Fury](https://img.shields.io/badge/Fury-OK-brightgreen.svg)]()                 |                                                                                 |
+
+## Support the team
+| Name                                     | Maintaining                    | Since     | Donate                                                                                               | Watch                                                                                                |
+| :---                                     | :---                           | ---:      | :---:                                                                                                | :---:                                                                                                |
+| [Aethys](https://github.com/Aethys256)   | Core, Rogue, Paladin, Guardian |  Aug 2016 | [![Donate](https://img.shields.io/badge/Donate-PayPal-003087.svg)](https://www.paypal.me/Aethys/5)     | [![Stream](https://img.shields.io/badge/Stream-Twitch-6441a4.svg)](https://www.twitch.tv/aethys)     |
+| [Nia](https://github.com/Nianel)         | Hunter, Fury                   |  Feb 2017 | [![Donate](https://img.shields.io/badge/Donate-PayPal-003087.svg)](https://www.paypal.me/Nianel/5)     | [![Stream](https://img.shields.io/badge/Stream-Twitch-6441a4.svg)](https://www.twitch.tv/nianel)     |
+| [KutiKuti](https://github.com/Kutikuti)  | Priest, Warlock, Balance       |  Mar 2017 | [![Donate](https://img.shields.io/badge/Donate-PayPal-003087.svg)](https://www.paypal.me/kutikuti/5)   |                                                                                                      |
+| [Mystler](https://github.com/Mystler)    | Rogue                          |  May 2017 | [![Donate](https://img.shields.io/badge/Donate-PayPal-003087.svg)](https://www.paypal.me/Mystler/5)    |                                                                                                      |
+| [Krich](https://github.com/chrislopez24) | Death Knight                   |  Jun 2017 | [![Donate](https://img.shields.io/badge/Donate-PayPal-003087.svg)]()                                   |                                                                                                      |
+| [Lithium](https://github.com/lithium720) | Shaman, Arms                   |  Jun 2017 | [![Donate](https://img.shields.io/badge/Donate-PayPal-003087.svg)](https://www.paypal.me/lithium720/5) | [![Stream](https://img.shields.io/badge/Stream-Twitch-6441a4.svg)](https://www.twitch.tv/lithium720) |
+| [Glynny](https://github.com/Glynnyx)     | Mage                           |  Aug 2017 | [![Donate](https://img.shields.io/badge/Donate-PayPal-003087.svg)](https://www.paypal.me/Glynnyx/5)    | [![Stream](https://img.shields.io/badge/Stream-Twitch-6441a4.svg)](https://www.twitch.tv/glynny_x)   |
+
 
 ## Special Mention About SimC APL
 As said earlier, every rotation is based on SimulationCraft Action Priority Lists (APL).
@@ -69,8 +76,7 @@ I (Aethys) am one of the main Rogue theorycrafter and contributor to the Simulat
 - [Skasch](https://github.com/skasch) for what we built together and the motivation he gave to me.
 - [Riff](https://github.com/tombell) for his great feedback and UI tweaks.
 - [Mystler](https://github.com/Mystler) for his help on everything related to rogues that frees me a lot of time.
-- [lithium720](https://github.com/lithium720), [Lockem90](https://github.com/Lockem90), [3L00DStrike](https://github.com/3L00DStrike), [chrislopez24](https://github.com/chrislopez24), [Zulandia](https://github.com/AlexanderKenny), [Glynny](https://github.com/orgs/SimCMinMax/people/Glynnyx) for the daily maintenance of rotations.
-- [Tael](https://github.com/Tae-l) for his past contributions.
+- [Tael](https://github.com/Tae-l), [Locke](https://github.com/Lockem90), [3L00DStrike](https://github.com/3L00DStrike), [Zulandia](https://github.com/AlexanderKenny), [Kojiyama](https://github.com/EvanMichaels) for the contributions.
 
 ## Advanced Users / Developper Notes
 If you want to use the addon directly from the [GitHub repository](https://github.com/SimCMinMax/AethysRotation), you would have to symlink every folders from this repository (AethysRotation folder and every class modules but the template) to your WoW Addons folder.

@@ -1,7 +1,0 @@
-changeset:   249:068b9619dd66
-tag:         v7.3.0.249-release
-user:        Tercio
-date:        Wed Sep 27 16:10:04 2017 -0300
-summary:     - when leaving a group invide an invasion point, show the gf panel again.
-
-

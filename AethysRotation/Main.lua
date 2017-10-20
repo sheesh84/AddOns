@@ -189,7 +189,7 @@
   end
   local EnabledRotation = {
     -- Death Knight
-      [250]   = false,                          -- Blood
+      [250]   = "AethysRotation_DeathKnight",   -- Blood
       [251]   = "AethysRotation_DeathKnight",   -- Frost
       [252]   = "AethysRotation_DeathKnight",   -- Unholy
     -- Demon Hunter
@@ -198,7 +198,7 @@
     -- Druid
       [102]   = "AethysRotation_Druid",         -- Balance
       [103]   = false,                          -- Feral
-      [104]   = false,                          -- Guardian
+      [104]   = "AethysRotation_Druid",         -- Guardian
       [105]   = false,                          -- Restoration
     -- Hunter
       [253]   = "AethysRotation_Hunter",        -- Beast Mastery
@@ -229,7 +229,7 @@
       [263]   = "AethysRotation_Shaman",        -- Enhancement
       [264]   = false,                          -- Restoration
     -- Warlock
-      [265]   = false,                          -- Affliction
+      [265]   = "AethysRotation_Warlock",       -- Affliction
       [266]   = "AethysRotation_Warlock",       -- Demonology
       [267]   = "AethysRotation_Warlock",       -- Destruction
     -- Warrior
